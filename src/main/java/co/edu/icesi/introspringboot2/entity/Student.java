@@ -19,6 +19,7 @@ public class Student {
     private String program;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Enrollment> enrollments;
 
     public Student() {}

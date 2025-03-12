@@ -36,3 +36,21 @@ VALUES (1, 'Ingeniería de Software IV', 1),
        (3, 'Computación y estructuras discretas II', 3),
        (4, 'Ingeniería de Software III', 4),
        (5, 'Proyecto Integrador I', 5);
+
+-- Insertar matriculas
+INSERT INTO domi_enrollments (id, student_id, course_id)
+VALUES
+    -- Ingeniería de Software IV
+    (1, 1, 1), (2, 2, 1), (3, 6, 1), (4, 8, 1), (5, 13, 1),
+
+    -- Computación y estructuras discretas III
+    (6, 1, 2), (7, 2, 2), (8, 3, 2), (9, 6, 2), (10, 14, 2),
+
+    -- Computación y estructuras discretas II
+    (11, 3, 3), (12, 5, 3), (13, 10, 3), (14, 12, 3), (15, 18, 3),
+
+    -- Ingeniería de Software III
+    (16, 1, 4), (17, 4, 4), (18, 6, 4), (19, 9, 4), (20, 13, 4),
+
+    -- Proyecto Integrador I
+    (21, 7, 5), (22, 8, 5), (23, 11, 5), (24, 15, 5), (25, 20, 5);

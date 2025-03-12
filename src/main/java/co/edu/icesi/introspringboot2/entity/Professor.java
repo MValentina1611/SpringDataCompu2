@@ -1,5 +1,6 @@
 package co.edu.icesi.introspringboot2.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class Professor {
     private String name;
 
     @OneToMany(mappedBy = "professor") //Nombre de la propiedad en la otra clase
+    @JsonIgnore
     private List<Course> courseList;
 
     public Professor() {

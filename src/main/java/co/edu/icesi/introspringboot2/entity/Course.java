@@ -1,6 +1,7 @@
 package co.edu.icesi.introspringboot2.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class Course {
     Professor professor;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Enrollment> enrollments;
 
     public Course() {
