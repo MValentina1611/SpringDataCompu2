@@ -24,7 +24,11 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course createCourse(Course course) {
-        return courseRepository.save(course);
+        if(courseRepository.findByName(course.getName()).isEmpty()) {
+            return courseRepository.save(course);
+        }else{
+            throw new RuntimeException("Course already exists");
+        }
     }
 
     @Override

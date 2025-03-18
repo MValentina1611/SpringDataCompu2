@@ -1,6 +1,5 @@
 package co.edu.icesi.introspringboot2.integration;
 
-
 import co.edu.icesi.introspringboot2.entity.Course;
 import co.edu.icesi.introspringboot2.entity.Professor;
 import co.edu.icesi.introspringboot2.repository.CourseRepository;
@@ -12,8 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class CourseServiceIntegrationTest {
@@ -57,6 +55,25 @@ public class CourseServiceIntegrationTest {
         assertNotNull(foundCourse);
         assertEquals("Computación en Internet II", foundCourse.getName());
     }
+
+
+    @Test
+    void saveCourse_WhenCourseAlreadyExists_ShouldThrowException(){
+        var courseA = new Course();
+        courseA.setName("Software IV");
+        courseA.setProfessor(professor);
+
+        var courseB = new Course();
+        courseB.setName("Software IV");
+        courseB.setProfessor(professor);
+
+        assertThrows(RuntimeException.class, () -> {
+            courseService.createCourse(courseA);
+            courseService.createCourse(courseB);
+        });
+
+    }
+
 
     @AfterEach
     void cleanup() {
