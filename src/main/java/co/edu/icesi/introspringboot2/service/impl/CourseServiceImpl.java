@@ -50,7 +50,7 @@ public class CourseServiceImpl implements CourseService {
         if(optCourse.isPresent()){
             return optCourse.get();
         }else{
-            throw new RuntimeException("There is no course with id " + id);
+            throw new RuntimeException("There is no course.html with id " + id);
         }
         */
     }

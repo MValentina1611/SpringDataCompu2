@@ -54,3 +54,8 @@ VALUES
 
     -- Proyecto Integrador I
     (21, 7, 5), (22, 8, 5), (23, 11, 5), (24, 15, 5), (25, 20, 5);
+
+SELECT setval('domi_professors_seq', (SELECT MAX(id) FROM domi_professors));
+SELECT setval('domi_students_seq', (SELECT MAX(id) FROM domi_students));
+SELECT setval('domi_courses_seq', (SELECT MAX(id) FROM domi_courses));
+SELECT setval('domi_enrollments_seq', (SELECT MAX(id) FROM domi_enrollments));

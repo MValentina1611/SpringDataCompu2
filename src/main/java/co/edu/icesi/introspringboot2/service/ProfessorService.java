@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface ProfessorService {
     Professor createProfessor(Professor professor);
+    List<Professor> getAllProfessor();
 }
