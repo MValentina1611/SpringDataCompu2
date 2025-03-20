@@ -1,5 +1,6 @@
 package co.edu.icesi.introspringboot2.service;
 
+import co.edu.icesi.introspringboot2.entity.Course;
 import co.edu.icesi.introspringboot2.entity.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -11,4 +12,6 @@ public interface StudentService {
     List<Student > getAllStudents();
     List<Student> getByProgram(String program);
     Page<Student> findAll(int page);
+
+    List<Student> getStudentsByCourse(Course course);
 }
