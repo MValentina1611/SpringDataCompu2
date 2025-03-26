@@ -20,4 +20,5 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query(value = "SELECT s.id,s.name,s.code,s.program FROM domi_students s JOIN domi_enrollments e ON s.id = e.student_id JOIN domi_courses c ON e.course_id=c.id WHERE c.id = :courseId", nativeQuery = true)
     List<Student> findStudentsInCourse(long courseId);
 
+    Optional<Student> findByCode(String code);
 }

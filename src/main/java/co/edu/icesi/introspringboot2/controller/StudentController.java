@@ -6,10 +6,7 @@ import co.edu.icesi.introspringboot2.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/student")
@@ -26,6 +23,26 @@ public class StudentController {
         model.addAttribute("student", new Student());
         return "student";
     }
+
+    @GetMapping("/detail/{id}") //student/detail/24
+    public String detail(Model model, @PathVariable("id") long id) {
+        try {
+            var student = studentService.getStudentByID(id);
+            model.addAttribute("student", student);
+            return "studentdetail";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
+
+    @GetMapping("/detail") //student/detail?code=A00111&name=Alfa
+    public String detailByCode(Model model, @RequestParam("code") String code) {
+        var student = studentService.getStudentByCode(code);
+        model.addAttribute("student", student);
+        return "studentdetail";
+    }
+
 
     @PostMapping
     public String saveStudent(@ModelAttribute Student student) {

@@ -12,6 +12,7 @@ public interface StudentService {
     List<Student > getAllStudents();
     List<Student> getByProgram(String program);
     Page<Student> findAll(int page);
-
     List<Student> getStudentsByCourse(Course course);
+    Student getStudentByID(long id);
+    Student getStudentByCode(String code);
 }

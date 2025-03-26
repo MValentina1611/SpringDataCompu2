@@ -56,4 +56,14 @@ public class StudentServiceImpl implements StudentService {
         return enrollments.stream().map(Enrollment::getStudent).toList();
     }
 
+    @Override
+    public Student getStudentByID(long id) {
+        return studentRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public Student getStudentByCode(String code) {
+        return studentRepository.findByCode(code).orElseThrow();
+    }
+
 }
