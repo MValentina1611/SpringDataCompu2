@@ -55,7 +55,14 @@ VALUES
     -- Proyecto Integrador I
     (21, 7, 5), (22, 8, 5), (23, 11, 5), (24, 15, 5), (25, 20, 5);
 
+
+-- Insertar usuario
+INSERT INTO domi_users (id, email, password)
+VALUES (1, 'domic.rincon@gmail.com', '$2a$12$LE5wWF2zJKLfE98E4KgJPO.buVfS0xHlSg2F2ciQMnk5kdgEBx506');
+
+
 SELECT setval('domi_professors_seq', (SELECT MAX(id) FROM domi_professors));
 SELECT setval('domi_students_seq', (SELECT MAX(id) FROM domi_students));
 SELECT setval('domi_courses_seq', (SELECT MAX(id) FROM domi_courses));
 SELECT setval('domi_enrollments_seq', (SELECT MAX(id) FROM domi_enrollments));
+SELECT setval('domi_users_seq', (SELECT MAX(id) FROM domi_users));
