@@ -12,28 +12,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/course")
-public class CourseController {
+@RequestMapping
+public class UserController {
 
-    @Autowired
-    private CourseService courseService;
 
-    @Autowired
-    private ProfessorService professorService;
-
-    @GetMapping
+    @GetMapping("/signup")
     public String index(Model model) {
-        model.addAttribute("course", new Course());
-        model.addAttribute("professors", professorService.getAllProfessor());
-        return "course";
+        return "signup";
     }
 
 
-    @PostMapping
-    public String createCourse(@ModelAttribute Course course) {
-        courseService.createCourse(course);
-        return "redirect:/course";
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "login";
     }
+
+    @GetMapping("/home")
+    public String home(Model model) {
+        return "home";
+    }
+
+
 
 
 }
