@@ -56,9 +56,25 @@ VALUES
     (21, 7, 5), (22, 8, 5), (23, 11, 5), (24, 15, 5), (25, 20, 5);
 
 
--- Insertar usuario
+-- Insertar usuarios
 INSERT INTO domi_users (id, email, password)
-VALUES (1, 'domic.rincon@gmail.com', '$2a$12$LE5wWF2zJKLfE98E4KgJPO.buVfS0xHlSg2F2ciQMnk5kdgEBx506');
+VALUES (1, 'estudiante@gmail.com', '$2a$12$LE5wWF2zJKLfE98E4KgJPO.buVfS0xHlSg2F2ciQMnk5kdgEBx506'),
+       (2, 'profesor@gmail.com', '$2a$12$LE5wWF2zJKLfE98E4KgJPO.buVfS0xHlSg2F2ciQMnk5kdgEBx506');;
+
+-- Insertar roles
+INSERT INTO domi_roles (id, name)
+VALUES (1, 'ROLE_STUDENT'),
+       (2, 'ROLE_PROFESSOR');
+
+-- Definir relaciones
+INSERT INTO domi_user_roles (user_id, role_id)
+VALUES (1, 1),
+       (2, 2);
+
+
+-- Configurar secuencia
+SELECT setval('domi_users_seq', (SELECT MAX(id) FROM domi_users));
+SELECT setval('domi_roles_seq', (SELECT MAX(id) FROM domi_roles));
 
 
 SELECT setval('domi_professors_seq', (SELECT MAX(id) FROM domi_professors));
