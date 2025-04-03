@@ -11,6 +11,11 @@
 
     <h1>Registro</h1>
 
+    <form th:action="@{/signup}" method="post" th:object="${user}">
+        <p><input type="text" placeholder="Email" th:field="*{email}" ></p>
+        <p><input type="password" placeholder="Password" th:field="*{password}" ></p>
+        <p><button>Registrarse</button></p>
+    </form>
 
 </body>
 </html>
