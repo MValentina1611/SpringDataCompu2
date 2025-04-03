@@ -1,6 +1,7 @@
 package co.edu.icesi.introspringboot2.security;
 
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,11 +9,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -23,8 +28,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/course").hasAnyRole("STUDENT", "PROFESSOR")
                                 .requestMatchers("/student").hasAnyRole("PROFESSOR")
                                 .anyRequest().authenticated()
-                )
-                .formLogin(login -> login
+                ).formLogin(login -> login
                         .loginPage("/login")
                         .defaultSuccessUrl("/home", true)
                         .permitAll()
@@ -34,13 +38,8 @@ public class WebSecurityConfig {
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()
-                );
+                );;
         return http.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
 }

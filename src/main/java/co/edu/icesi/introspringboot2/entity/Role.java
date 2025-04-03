@@ -2,6 +2,9 @@ package co.edu.icesi.introspringboot2.entity;
 
 
 import jakarta.persistence.*;
+
+import java.util.List;
+
 @Entity
 @Table(name = "domi_roles")
 public class Role {
