@@ -23,6 +23,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(User user) {
+        boolean emailExists = userRepository.findByEmail(user.getEmail()).isPresent();
+        if (emailExists) {
+            throw new IllegalArgumentException("El correo ya está registrado.");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }

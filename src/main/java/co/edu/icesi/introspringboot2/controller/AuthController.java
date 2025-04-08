@@ -23,8 +23,12 @@ public class AuthController {
 
     @PostMapping("/signup")
     public String signupCreate(@ModelAttribute User user) {
-        userService.createUser(user);
-        return "redirect:/login";
+        try {
+            userService.createUser(user);
+            return "redirect:/login";
+        } catch (IllegalArgumentException e) {
+            return "redirect:/signup?emailAlreadyExists";
+        }
     }
 
     @GetMapping("/login")

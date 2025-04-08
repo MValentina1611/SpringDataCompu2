@@ -15,6 +15,10 @@
 <form th:action="@{/signup}" method="post" th:object="${user}">
     <h2>Crear cuenta</h2>
 
+    <div th:if="${param.emailAlreadyExists}" class="message error">
+        Ya existe una cuenta con este correo electrónico.
+    </div>
+
     <input type="text" placeholder="Email" th:field="*{email}" required>
 
     <div class="password-wrapper">
