@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AuthController {
@@ -19,7 +18,7 @@ public class AuthController {
     @GetMapping("/signup")
     public String signup(Model model) {
         model.addAttribute("user", new User());
-        return "signup";
+        return "features/auth/signup";
     }
 
     @PostMapping("/signup")
@@ -30,12 +29,12 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "features/auth/login";
     }
 
     @GetMapping("/home")
     public String home() {
-        return "home";
+        return "features/auth/home";
     }
 
 

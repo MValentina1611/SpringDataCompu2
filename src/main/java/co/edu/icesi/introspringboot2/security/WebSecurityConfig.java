@@ -24,6 +24,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests(
                         auth -> auth
+                                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                                 .requestMatchers("/signup").permitAll()
                                 .requestMatchers("/course").hasAnyRole("STUDENT", "PROFESSOR")
                                 .requestMatchers("/student").hasAnyRole("PROFESSOR")
