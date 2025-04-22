@@ -1,5 +1,7 @@
 package co.edu.icesi.introspringboot2.service;
 
+import co.edu.icesi.introspringboot2.dto.CourseDTO;
+import co.edu.icesi.introspringboot2.dto.StudentDTO;
 import co.edu.icesi.introspringboot2.entity.Course;
 import co.edu.icesi.introspringboot2.entity.Student;
 import org.springframework.data.domain.Page;
@@ -8,11 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface StudentService {
-    void createStudent(Student student);
-    List<Student > getAllStudents();
-    List<Student> getByProgram(String program);
-    Page<Student> findAll(int page);
-    List<Student> getStudentsByCourse(Course course);
-    Student getStudentByID(long id);
-    Student getStudentByCode(String code);
+    void createStudent(StudentDTO student);
+    List<StudentDTO> getAllStudents();
+    List<StudentDTO> getByProgram(String program);
+    Page<StudentDTO> findAll(int page);
+    List<StudentDTO> getStudentsByCourse(CourseDTO course);
+    StudentDTO getStudentByID(long id);
+    StudentDTO getStudentByCode(String code);
+    StudentDTO updateStudent(Long id, StudentDTO studentDTO);
 }

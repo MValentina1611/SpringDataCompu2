@@ -1,8 +1,13 @@
 package co.edu.icesi.introspringboot2.service.impl;
 
+import co.edu.icesi.introspringboot2.dto.CourseDTO;
+import co.edu.icesi.introspringboot2.dto.StudentDTO;
 import co.edu.icesi.introspringboot2.entity.Course;
 import co.edu.icesi.introspringboot2.entity.Enrollment;
 import co.edu.icesi.introspringboot2.entity.Student;
+import co.edu.icesi.introspringboot2.mapper.CourseMapper;
+import co.edu.icesi.introspringboot2.mapper.StudentMapper;
+import co.edu.icesi.introspringboot2.repository.CourseRepository;
 import co.edu.icesi.introspringboot2.repository.EnrollmentRepository;
 import co.edu.icesi.introspringboot2.repository.StudentRepository;
 import co.edu.icesi.introspringboot2.service.StudentService;
@@ -15,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -28,42 +34,57 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private EnrollmentRepository enrollmentRepository;
 
+    @Autowired
+    private StudentMapper studentMapper;
+
+    @Autowired
+    private CourseMapper courseMapper;
+
     @Override
     @Transactional
-    public void createStudent(Student student) {
-        studentRepository.save(student);
+    public void createStudent(StudentDTO studentDTO) {
+        studentRepository.save(studentMapper.toEntity(studentDTO));
     }
 
     @Override
-    public List<Student> getAllStudents() {
-        return studentRepository.findAll();
+    public List<StudentDTO> getAllStudents() {
+        return studentRepository.findAll().stream().map(student -> studentMapper.toDTO(student)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Student> getByProgram(String program){
-        return studentRepository.findByProgram(program);
+    public List<StudentDTO> getByProgram(String program){
+        return studentRepository.findByProgram(program).stream().map(student -> studentMapper.toDTO(student)).toList();
     }
 
     @Override
-    public Page<Student> findAll(int page){
+    public Page<StudentDTO> findAll(int page){
         Pageable pageable = PageRequest.of(page, pageSize);
-        return studentRepository.findAll(pageable);
+        return studentRepository.findAll(pageable).map(student -> studentMapper.toDTO(student));
     }
 
     @Override
-    public List<Student> getStudentsByCourse(Course course) {
-        List<Enrollment> enrollments = enrollmentRepository.findByCourse(course);
-        return enrollments.stream().map(Enrollment::getStudent).toList();
+    public List<StudentDTO> getStudentsByCourse(CourseDTO courseDTO) {
+        List<Enrollment> enrollments = enrollmentRepository.findByCourse(courseMapper.toEntity(courseDTO));
+        return enrollments.stream().map(enrollment -> studentMapper.toDTO(enrollment.getStudent())).toList();
     }
 
     @Override
-    public Student getStudentByID(long id) {
-        return studentRepository.findById(id).orElseThrow();
+    public StudentDTO getStudentByID(long id) {
+        return studentMapper.toDTO(studentRepository.findById(id).orElseThrow());
     }
 
     @Override
-    public Student getStudentByCode(String code) {
-        return studentRepository.findByCode(code).orElseThrow();
+    public StudentDTO getStudentByCode(String code) {
+        return studentMapper.toDTO(studentRepository.findByCode(code).orElseThrow());
+    }
+
+    @Override
+    public StudentDTO updateStudent(Long id, StudentDTO studentDTO) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado"));
+        student.setName(studentDTO.getName() != null ? studentDTO.getName() : student.getName());
+        student.setProgram(studentDTO.getProgram() != null ? studentDTO.getProgram() : student.getProgram());
+        return studentMapper.toDTO(studentRepository.save(student));
     }
 
 }

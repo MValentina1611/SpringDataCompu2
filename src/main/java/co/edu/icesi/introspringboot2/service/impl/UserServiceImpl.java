@@ -4,6 +4,7 @@ import co.edu.icesi.introspringboot2.entity.User;
 import co.edu.icesi.introspringboot2.repository.UserRepository;
 import co.edu.icesi.introspringboot2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
+    @Lazy
     private PasswordEncoder passwordEncoder;
 
     @Override

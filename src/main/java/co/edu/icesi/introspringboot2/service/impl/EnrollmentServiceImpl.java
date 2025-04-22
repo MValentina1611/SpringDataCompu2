@@ -33,4 +33,12 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         enrollmentRepository.save(enrollment);
 
     }
+
+    @Override
+    public void deleteEnrollmentById(long enrollmentId) {
+        if (!enrollmentRepository.existsById(enrollmentId)) {
+            throw new RuntimeException("Enrollment with id " + enrollmentId + " not found");
+        }
+        enrollmentRepository.deleteById(enrollmentId);
+    }
 }

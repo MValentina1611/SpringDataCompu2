@@ -1,14 +1,15 @@
 package co.edu.icesi.introspringboot2.service;
 
+import co.edu.icesi.introspringboot2.dto.CourseDTO;
 import co.edu.icesi.introspringboot2.entity.Course;
 import co.edu.icesi.introspringboot2.entity.Student;
 
 import java.util.List;
 
 public interface CourseService {
-    Course createCourse(Course course);
-    List<Course> listCourseOfStudent(long studentId);
-    List<Course> getAllCourses();
-    Course getCourseById(long l);
+    void createCourse(CourseDTO course);
+    List<CourseDTO> listCourseOfStudent(long studentId);
+    List<CourseDTO> getAllCourses();
+    CourseDTO getCourseById(long id);
     void deleteCourse(long courseId);
 }

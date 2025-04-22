@@ -28,14 +28,14 @@ public class JwtService {
 
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
-                .setClaims( createClaims(userDetails) )
+                .addClaims(createClaims(userDetails))
                 .setIssuedAt(now)
                 .setExpiration(expiry)
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
                 .compact();
     }
 
-    public Map<String, Object> createClaims(UserDetails userDetails){
+    public Map<String, Object> createClaims(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", userDetails.getUsername());
         claims.put("roles", userDetails.getAuthorities()
@@ -44,5 +44,14 @@ public class JwtService {
                 .collect(Collectors.toList()));
         return claims;
     }
+
+    public Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes()))
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
 
 }
